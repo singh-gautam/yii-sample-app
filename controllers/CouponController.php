@@ -75,7 +75,7 @@ class CouponController extends Controller
 			$pages = '';
 		}
 
-		return $this->render('coupons', [
+		return $this->render('search', [
 			'model' => $model,
 			'coupons' => $coupons,
 			'pages' => $pages
