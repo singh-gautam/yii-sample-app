@@ -16,7 +16,9 @@ class CouponCategoriesController extends \yii\web\Controller
 	
 	public function actionSearch() {
 		$request = Yii::$app->request;
-		$model = new CouponCategories;
+		$model = new CouponCategories();
+		
+		$categories = $model->fetchDistinctCategories(['CategoryID', 'Name']);
 		
 		if(isset($request->get('CouponCategories')['CategoryID'])) {
 			$categoryId = $request->get('CouponCategories')['CategoryID'];
@@ -39,9 +41,12 @@ class CouponCategoriesController extends \yii\web\Controller
 			$categoryId = '';
 			$pages = '';
 		}
+		$model = new CouponCategories;
+		
 		return $this->render('search', [
 			'model' => $model,
 			'CategoryID' => $categoryId,
+			'categories' => $categories,
 			'coupons' => $coupons,
 			'pages' => $pages
 		]);

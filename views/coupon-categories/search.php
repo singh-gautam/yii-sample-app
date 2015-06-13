@@ -16,21 +16,27 @@ $form = ActiveForm::begin([
 ]);
 
 $model->CategoryID = $CategoryID;
-echo $form->field($model, 'CategoryID')
-		->textInput([
-			'type' => 'number',
-			'min' => 1,
-			'value' => $CategoryID
-		])
-		->label('Required Coupon ID:');
+
+$categoriesList = array();
+
+foreach($categories as $category) {
+	$categoriesList[$category["CategoryID"]] = $category["Name"];
+}
+
+
+echo Html::activeRadioList($model, 'CategoryID', $categoriesList, ['label' => 'Required Coupon ID:']);
 
 echo Html::submitButton('Search', [
 	'class' => 'btn btn-success'
 ]);
 
+$form->end();
+
 var_dump($coupons);
 
-echo LinkPager::widget([
+if($CategoryID != '') {
+	echo LinkPager::widget([
 	    'pagination' => $pages,
 	]);
+}
 ?>

@@ -31,6 +31,11 @@ class CouponCategories extends \yii\db\ActiveRecord
     {
         return 'CouponCategories';
     }
+	
+	public function __construct() {
+		parent::__construct();
+		$this->pages = null;
+	}
 
     /**
      * @inheritdoc
@@ -77,5 +82,19 @@ class CouponCategories extends \yii\db\ActiveRecord
 				->limit($this->pages->limit)
 				->orderBy('CouponID')
 				->viaTable('CouponCategoryInfo' ,['CategoryID' => 'CategoryID']);
+	}
+	
+	public function fetchDistinctCategories($select = [], $offset = 0, $limit = -1) {
+
+		$query = CouponCategories::find();
+		if(sizeof($select) > 0) {
+			$query = $query->select($select);
+		}
+		$query = $query->offset($offset);
+		
+		if($limit != -1) {
+			$query = $query->limit($limit);
+		}
+		return $query->distinct()->all();	
 	}
 }
