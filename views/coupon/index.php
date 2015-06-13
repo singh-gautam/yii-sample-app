@@ -1,5 +1,9 @@
 <?php
 /* @var $this yii\web\View */
+use yii\helpers\Url;
+use yii\helpers\Html;
+
+echo Html::a("Search", Url::toRoute('coupon/search'));
 ?>
 <h1>Coupons</h1>
 <ol>
