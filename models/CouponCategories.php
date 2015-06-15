@@ -78,8 +78,6 @@ class CouponCategories extends \yii\db\ActiveRecord
 	{
 		return $this->hasMany(Coupon::className(), ['CouponID' => 'CouponID'])
                 ->select(['CouponID', 'CouponCode', 'Title'])
-				->offset($this->pages->offset)
-				->limit($this->pages->limit)
 				->orderBy('CouponID')
 				->viaTable('CouponCategoryInfo' ,['CategoryID' => 'CategoryID']);
 	}
