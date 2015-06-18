@@ -95,22 +95,13 @@ class CouponController extends Controller
 		}
 
 		$query = Coupon::find()
-			->select([
-				'CouponID',
-				'CouponCode',
-				'IsDeal',
-				'Title'
-			])
+			->select(['CouponID','CouponCode','IsDeal','Title'])
 			->where($where);
-		
 		
 		$counter = clone $query;
 		$count = $counter->count();
 		
-		
-		$pages = new Pagination([
-			'totalCount' => $count
-			]);
+		$pages = new Pagination(['totalCount' => $count]);
 
 		$coupons = $query->offset($pages->offset)
 			->limit($pages->limit)
